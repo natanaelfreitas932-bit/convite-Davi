@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista de Presentes do Davi 🦕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { min-height: 100vh; background: #e8e5db; font-family: 'Nunito', sans-serif; padding-bottom: 40px; }
+
+    .header { background: #7d8c6e; padding: 36px 24px 60px; text-align: center; position: relative; overflow: hidden; }
+    .header::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 50px; background: #e8e5db; border-radius: 50% 50% 0 0 / 36px 36px 0 0; }
+    .balloon-row { position: absolute; top: 10px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 14px; pointer-events: none; }
+    .balloon { width: 18px; height: 24px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; position: relative; animation: floatB 3s ease-in-out infinite; }
+    .balloon::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); width: 1px; height: 6px; background: rgba(201,185,122,0.5); }
+    .bg{background:#9aaa88;animation-delay:0s}.gg{background:#c9b97a;animation-delay:.5s}.bw{background:#e8e5db;animation-delay:1s}.bg2{background:#b5c4a4;animation-delay:.3s}.gg2{background:#c9b97a;animation-delay:.8s}.bg3{background:#9aaa88;animation-delay:1.3s}
+    @keyframes floatB{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-7px) rotate(4deg)}}
+    .hdr-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #c9b97a; margin-bottom: 6px; }
+    .hdr-title { font-family: 'Playfair Display', serif; font-size: 42px; color: #f5f2ea; line-height: 1; text-shadow: 0 2px 12px rgba(0,0,0,0.15); margin-bottom: 4px; }
+    .hdr-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: #c9b97a; letter-spacing: 1px; }
+
+    .dino-header { display: flex; justify-content: center; margin-top: -28px; position: relative; z-index: 2; margin-bottom: 8px; }
+    .dino-header svg { width: 90px; animation: dinoFloat 2.6s ease-in-out infinite; filter: drop-shadow(0 6px 12px rgba(90,110,80,0.18)); }
+    @keyframes dinoFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+
+    .main { max-width: 600px; margin: 0 auto; padding: 0 16px; }
+
+    .intro-card { background: #f5f2ea; border-radius: 20px; border: 1.5px solid #c9b97a; padding: 16px 20px; text-align: center; margin-bottom: 20px; }
+    .intro-card p { font-size: 14px; color: #6b7a5e; line-height: 1.6; }
+    .intro-card strong { color: #4a5240; }
+
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .stat-card { background: #f5f2ea; border-radius: 16px; border: 1px solid #e0d9c4; padding: 12px 8px; text-align: center; position: relative; overflow: hidden; }
+    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #c9b97a, #9aaa88); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 26px; color: #4a5240; font-weight: 700; }
+    .stat-label { font-size: 10px; color: #9aaa88; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-top: 2px; }
+
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .filter-btn { background: #f5f2ea; border: 1px solid #c9b97a; border-radius: 50px; padding: 6px 14px; font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700; color: #6b7a5e; cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px; }
+    .filter-btn.active, .filter-btn:hover { background: #7d8c6e; color: #f5f2ea; border-color: #7d8c6e; }
+
+    .section-title { font-family: 'Playfair Display', serif; font-size: 18px; color: #4a5240; margin: 20px 0 10px; display: flex; align-items: center; gap: 10px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, #c9b97a, transparent); }
+
+    .gifts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+
+    .gift-card { background: #f5f2ea; border-radius: 18px; border: 1.5px solid #e0d9c4; padding: 14px 12px; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; }
+    .gift-card:not(.taken) { cursor: pointer; }
+    .gift-card:not(.taken):hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(74,82,64,0.12); }
+    .gift-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #c9b97a, #9aaa88); }
+    .gift-card.taken { background: #f0ede4; border-color: #d0cdc4; opacity: 0.65; cursor: not-allowed; }
+    .gift-card.taken::before { background: #c0bdb4; }
+
+    .gift-icon { font-size: 22px; margin-bottom: 6px; display: block; }
+    .gift-name { font-family: 'Playfair Display', serif; font-size: 13px; color: #4a5240; line-height: 1.3; margin-bottom: 8px; }
+    .gift-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; background: #e8f0e0; color: #5a7048; }
+    .gift-card.taken .gift-tag { background: #e0ddd6; color: #888; }
+
+    .taken-badge { position: absolute; top: 10px; right: 10px; background: #9aaa88; color: #fff; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 50px; }
+
+    .choose-btn { display: block; width: 100%; background: linear-gradient(135deg, #7d8c6e, #4a5240); color: #f5f2ea; border: none; border-radius: 50px; padding: 7px 10px; font-family: 'Playfair Display', serif; font-size: 12px; cursor: pointer; margin-top: 8px; transition: opacity 0.15s; text-align: center; }
+    .choose-btn:hover { opacity: 0.88; }
+    .gift-card.taken .choose-btn { background: #c0bdb4; cursor: not-allowed; }
+
+    .loading-wrap { text-align: center; padding: 40px 0; }
+    .loading-dino { font-size: 36px; animation: dinoFloat 1.2s ease-in-out infinite; display: inline-block; }
+    .loading-txt { font-family: 'Playfair Display', serif; font-style: italic; color: #9aaa88; margin-top: 10px; font-size: 15px; }
+
+    .back-wrap { text-align: center; margin-top: 28px; }
+    .back-btn { display: inline-block; background: transparent; border: 1.5px solid #c9b97a; border-radius: 50px; padding: 11px 28px; font-family: 'Playfair Display', serif; font-size: 15px; color: #6b7a5e; text-decoration: none; cursor: pointer; transition: all 0.2s; }
+    .back-btn:hover { background: #f5f2ea; color: #4a5240; }
+    .footer-txt { text-align: center; margin-top: 16px; font-size: 12px; color: #9aaa88; letter-spacing: 2px; text-transform: uppercase; }
+
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(74,82,64,0.55); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: #f5f2ea; border-radius: 24px; border: 1.5px solid #c9b97a; padding: 28px 24px; max-width: 360px; width: 100%; text-align: center; }
+    .modal-dino { font-size: 36px; margin-bottom: 10px; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 22px; color: #4a5240; margin-bottom: 6px; }
+    .modal-gift { font-family: 'Playfair Display', serif; font-style: italic; font-size: 16px; color: #7d8c6e; margin-bottom: 16px; padding: 10px 16px; background: #fff; border-radius: 12px; border: 1px solid #e0d9c4; }
+    .modal-sub { font-size: 13px; color: #9aaa88; margin-bottom: 20px; line-height: 1.5; }
+    .modal-name-input { width: 100%; padding: 10px 16px; border: 1.5px solid #c9b97a; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 15px; color: #4a5240; background: #fff; outline: none; margin-bottom: 14px; text-align: center; }
+    .modal-name-input:focus { border-color: #7d8c6e; }
+    .modal-confirm { display: block; width: 100%; background: linear-gradient(135deg, #7d8c6e, #4a5240); color: #f5f2ea; border: none; border-radius: 50px; padding: 13px; font-family: 'Playfair Display', serif; font-size: 16px; cursor: pointer; margin-bottom: 10px; transition: opacity 0.15s; }
+    .modal-confirm:hover { opacity: 0.88; }
+    .modal-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
+    .modal-cancel { background: none; border: none; font-family: 'Nunito', sans-serif; font-size: 13px; color: #9aaa88; cursor: pointer; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="balloon-row">
+      <div class="balloon bg"></div><div class="balloon gg"></div><div class="balloon bw"></div>
+      <div class="balloon bg2"></div><div class="balloon gg2"></div><div class="balloon bg3"></div>
+    </div>
+    <svg style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="30" cy="40" rx="22" ry="10" fill="#a0b090" opacity="0.3" transform="rotate(35 30 40)"/>
+      <ellipse cx="560" cy="30" rx="20" ry="9" fill="#c9b97a" opacity="0.2" transform="rotate(-25 560 30)"/>
+      <ellipse cx="50" cy="160" rx="18" ry="8" fill="#a0b090" opacity="0.25" transform="rotate(50 50 160)"/>
+      <ellipse cx="540" cy="150" rx="20" ry="9" fill="#c9b97a" opacity="0.2" transform="rotate(-40 540 150)"/>
+    </svg>
+    <div class="hdr-tag">chá de bebê · davi</div>
+    <div class="hdr-title">Lista de Presentes</div>
+    <div class="hdr-sub">escolha com carinho 🌿</div>
+  </div>
+
+  <div class="dino-header">
+    <svg viewBox="0 0 200 230" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="100" cy="158" rx="56" ry="52" fill="#8fa07e"/>
+      <rect x="87" y="96" width="30" height="52" rx="14" fill="#8fa07e"/>
+      <ellipse cx="118" cy="86" rx="35" ry="29" fill="#8fa07e"/>
+      <ellipse cx="149" cy="96" rx="17" ry="12" fill="#a8b99a"/>
+      <circle cx="126" cy="76" r="9" fill="#f5f2ea"/><circle cx="128" cy="77" r="5.5" fill="#3a4a30"/><circle cx="130" cy="75" r="2" fill="#fff"/>
+      <circle cx="154" cy="94" r="2.5" fill="#6e8060"/>
+      <path d="M140 102 Q149 110 157 102" stroke="#6e8060" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <polygon points="94,96 98,72 103,96" fill="#c9b97a"/><polygon points="102,94 107,68 112,94" fill="#c9b97a"/><polygon points="110,94 115,70 120,94" fill="#c9b97a"/>
+      <path d="M54 172 Q18 188 14 166 Q18 145 46 154" fill="#8fa07e"/>
+      <ellipse cx="73" cy="155" rx="13" ry="8" fill="#a8b99a" transform="rotate(-28 73 155)"/>
+      <rect x="71" y="198" width="26" height="24" rx="11" fill="#7d8c6e"/><rect x="104" y="198" width="26" height="24" rx="11" fill="#7d8c6e"/>
+      <ellipse cx="77" cy="222" rx="5" ry="3" fill="#c9b97a"/><ellipse cx="117" cy="222" rx="5" ry="3" fill="#c9b97a"/>
+      <ellipse cx="100" cy="158" rx="30" ry="26" fill="#a8b99a" opacity="0.45"/>
+      <polygon points="88,122 96,128 88,134" fill="#c9b97a"/><polygon points="112,122 104,128 112,134" fill="#c9b97a"/>
+      <circle cx="100" cy="128" r="5" fill="#c9b97a"/>
+    </svg>
+  </div>
+
+  <div class="main">
+    <div class="intro-card">
+      <p>Escolha um presente para o <strong>Davi</strong> com carinho! Após escolher, você será direcionado ao WhatsApp para confirmar. Cada item pode ser escolhido por apenas uma pessoa. 🦕</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" id="total-num">55</div><div class="stat-label">total</div></div>
+      <div class="stat-card"><div class="stat-num" id="available-num">—</div><div class="stat-label">disponíveis</div></div>
+      <div class="stat-card"><div class="stat-num" id="taken-num">—</div><div class="stat-label">escolhidos</div></div>
+    </div>
+
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterGifts('todos',this)">Todos</button>
+      <button class="filter-btn" onclick="filterGifts('RN',this)">Fralda RN</button>
+      <button class="filter-btn" onclick="filterGifts('P',this)">Fralda P</button>
+      <button class="filter-btn" onclick="filterGifts('M',this)">Fralda M</button>
+      <button class="filter-btn" onclick="filterGifts('G',this)">Fralda G</button>
+      <button class="filter-btn" onclick="filterGifts('disponivel',this)">Disponíveis</button>
+    </div>
+
+    <div id="gifts-container">
+      <div class="loading-wrap">
+        <div class="loading-dino">🦕</div>
+        <div class="loading-txt">Carregando lista...</div>
+      </div>
+    </div>
+
+    <div class="back-wrap">
+      <a class="back-btn" href="index.html">← Voltar ao Convite</a>
+    </div>
+    <div class="footer-txt">com amor · davi 🦕</div>
+  </div>
+
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-dino">🦕</div>
+      <div class="modal-title">Que presente lindo!</div>
+      <div class="modal-gift" id="modal-gift-name"></div>
+      <div class="modal-sub">Deixe seu nome para confirmar no WhatsApp:</div>
+      <input class="modal-name-input" type="text" id="guest-name" placeholder="Seu nome" maxlength="50"/>
+      <button class="modal-confirm" id="modal-confirm-btn" onclick="confirmGift()">Confirmar no WhatsApp 💬</button>
+      <button class="modal-cancel" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+
+<script>
+  const API_KEY = '$2a$10$v7A3dfNFbqWudWfGpxB/Q.EJ581fZbFwxdd4lfPTfDun05zN8aKoC';
+  const WA_NUMBER = '5584986293760';
+  let BIN_ID = null;
+  let takenGifts = {};
+  let selectedGiftId = null;
+  let currentFilter = 'todos';
+
+  const gifts = [
+    {id:1,name:'Fralda RN + Body (RN, P)',category:'RN',icon:'👶'},
+    {id:2,name:'Fralda RN + Body (RN, P)',category:'RN',icon:'👶'},
+    {id:3,name:'Fralda RN + Body (RN, P)',category:'RN',icon:'👶'},
+    {id:4,name:'Fralda RN + Body (RN, P)',category:'RN',icon:'👶'},
+    {id:5,name:'Fralda RN + Body (RN, P)',category:'RN',icon:'👶'},
+    {id:6,name:'Fralda RN + Body (RN, P)',category:'RN',icon:'👶'},
+    {id:7,name:'Fralda P + Fraldas de pano',category:'P',icon:'🧷'},
+    {id:8,name:'Fralda P + Fraldas de pano',category:'P',icon:'🧷'},
+    {id:9,name:'Fralda P + Fraldas de pano',category:'P',icon:'🧷'},
+    {id:10,name:'Fralda P + Fraldas de pano',category:'P',icon:'🧷'},
+    {id:11,name:'Fralda P + Fraldas de pano',category:'P',icon:'🧷'},
+    {id:12,name:'Fralda P + Toalha',category:'P',icon:'🛁'},
+    {id:13,name:'Fralda P + Toalha',category:'P',icon:'🛁'},
+    {id:14,name:'Fralda P + Toalha',category:'P',icon:'🛁'},
+    {id:15,name:'Fralda P + Toalha',category:'P',icon:'🛁'},
+    {id:16,name:'Fralda P + Kit Higiene',category:'P',icon:'🧴'},
+    {id:17,name:'Fralda P + Kit Higiene',category:'P',icon:'🧴'},
+    {id:18,name:'Fralda P + Kit Higiene',category:'P',icon:'🧴'},
+    {id:19,name:'Fralda P + Kit Higiene',category:'P',icon:'🧴'},
+    {id:20,name:'Fralda P + Kit Higiene',category:'P',icon:'🧴'},
+    {id:21,name:'Fralda P + Kit Higiene',category:'P',icon:'🧴'},
+    {id:22,name:'Fralda M + Mijão/Calça',category:'M',icon:'👕'},
+    {id:23,name:'Fralda M + Mijão/Calça',category:'M',icon:'👕'},
+    {id:24,name:'Fralda M + Mijão/Calça',category:'M',icon:'👕'},
+    {id:25,name:'Fralda M + Mijão/Calça',category:'M',icon:'👕'},
+    {id:26,name:'Fralda M + Mijão/Calça',category:'M',icon:'👕'},
+    {id:27,name:'Fralda M + Paninhos de boca',category:'M',icon:'🤍'},
+    {id:28,name:'Fralda M + Paninhos de boca',category:'M',icon:'🤍'},
+    {id:29,name:'Fralda M + Paninhos de boca',category:'M',icon:'🤍'},
+    {id:30,name:'Fralda M + Paninhos de boca',category:'M',icon:'🤍'},
+    {id:31,name:'Fralda M + Paninhos de boca',category:'M',icon:'🤍'},
+    {id:32,name:'Fralda M + Cueiro',category:'M',icon:'🌿'},
+    {id:33,name:'Fralda M + Cueiro',category:'M',icon:'🌿'},
+    {id:34,name:'Fralda M + Cueiro',category:'M',icon:'🌿'},
+    {id:35,name:'Fralda M + Kit Higiene',category:'M',icon:'🧴'},
+    {id:36,name:'Fralda M + Kit Higiene',category:'M',icon:'🧴'},
+    {id:37,name:'Fralda M + Kit Higiene',category:'M',icon:'🧴'},
+    {id:38,name:'Fralda M + Kit Higiene',category:'M',icon:'🧴'},
+    {id:39,name:'Fralda M + Kit Higiene',category:'M',icon:'🧴'},
+    {id:40,name:'Fralda M + Lençol para berço',category:'M',icon:'🛏️'},
+    {id:41,name:'Fralda M + Lençol para berço',category:'M',icon:'🛏️'},
+    {id:42,name:'Fralda G + Lençol para berço',category:'G',icon:'🛏️'},
+    {id:43,name:'Fralda G + Cueiro',category:'G',icon:'🌿'},
+    {id:44,name:'Fralda G + Kit Higiene',category:'G',icon:'🧴'},
+    {id:45,name:'Fralda G + Kit Higiene',category:'G',icon:'🧴'},
+    {id:46,name:'Fralda G + Kit Higiene',category:'G',icon:'🧴'},
+    {id:47,name:'Fralda G + Kit Higiene',category:'G',icon:'🧴'},
+    {id:48,name:'Fralda G + Kit Higiene',category:'G',icon:'🧴'},
+    {id:49,name:'Fralda G + Fraldas de pano',category:'G',icon:'🧷'},
+    {id:50,name:'Fralda G + Fraldas de pano',category:'G',icon:'🧷'},
+    {id:51,name:'Fralda G + Fraldas de pano',category:'G',icon:'🧷'},
+    {id:52,name:'Fralda G + Mimo',category:'G',icon:'🎁'},
+    {id:53,name:'Fralda G + Mimo',category:'G',icon:'🎁'},
+    {id:54,name:'Fralda G + Mimo',category:'G',icon:'🎁'},
+    {id:55,name:'Fralda G + Mimo',category:'G',icon:'🎁'},
+  ];
+
+  async function initBin() {
+    // Tenta buscar bin existente pelo nome
+    try {
+      const res = await fetch('https://api.jsonbin.io/v3/b?meta=false', {
+        headers: { 'X-Access-Key': API_KEY }
+      });
+      if (res.ok) {
+        const bins = await res.json();
+        if (Array.isArray(bins)) {
+          const found = bins.find(b => b.metadata && b.metadata.name === 'davi-presentes');
+          if (found) { BIN_ID = found.metadata.id; return; }
+        }
+      }
+    } catch(e) {}
+
+    // Cria novo bin
+    const create = await fetch('https://api.jsonbin.io/v3/b', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Key': API_KEY,
+        'X-Bin-Name': 'davi-presentes',
+        'X-Bin-Private': 'false'
+      },
+      body: JSON.stringify({ taken: {} })
+    });
+    const data = await create.json();
+    BIN_ID = data.metadata.id;
+    // Salva ID no localStorage para próximas visitas rápidas
+    try { localStorage.setItem('davi_bin_id', BIN_ID); } catch(e) {}
+  }
+
+  async function loadData() {
+    // Tenta pegar BIN_ID do localStorage primeiro
+    if (!BIN_ID) {
+      try { BIN_ID = localStorage.getItem('davi_bin_id'); } catch(e) {}
+    }
+    if (!BIN_ID) { await initBin(); }
+
+    try {
+      const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers: { 'X-Access-Key': API_KEY }
+      });
+      const data = await res.json();
+      takenGifts = data.record.taken || {};
+    } catch(e) { takenGifts = {}; }
+
+    updateStats();
+    renderGifts(currentFilter);
+  }
+
+  async function saveData() {
+    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Access-Key': API_KEY },
+      body: JSON.stringify({ taken: takenGifts })
+    });
+  }
+
+  function updateStats() {
+    const takenCount = Object.keys(takenGifts).length;
+    document.getElementById('total-num').textContent = gifts.length;
+    document.getElementById('taken-num').textContent = takenCount;
+    document.getElementById('available-num').textContent = gifts.length - takenCount;
+  }
+
+  function getCategoryLabel(cat) {
+    return { RN:'Fralda RN', P:'Fralda P', M:'Fralda M', G:'Fralda G' }[cat] || cat;
+  }
+
+  function renderGifts(filter) {
+    const container = document.getElementById('gifts-container');
+    container.innerHTML = '';
+    const categories = ['RN','P','M','G'];
+    let hasAny = false;
+    categories.forEach(cat => {
+      let list = gifts.filter(g => g.category === cat);
+      if (filter === 'disponivel') list = list.filter(g => !takenGifts[g.id]);
+      else if (filter !== 'todos') list = list.filter(g => g.category === filter);
+      if (list.length === 0) return;
+      hasAny = true;
+      if (filter === 'todos' || filter === 'disponivel') {
+        const sec = document.createElement('div');
+        sec.className = 'section-title';
+        sec.textContent = getCategoryLabel(cat);
+        container.appendChild(sec);
+      }
+      const grid = document.createElement('div');
+      grid.className = 'gifts-grid';
+      list.forEach(g => {
+        const taken = !!takenGifts[g.id];
+        const card = document.createElement('div');
+        card.className = 'gift-card' + (taken ? ' taken' : '');
+        card.innerHTML = `
+          ${taken ? '<div class="taken-badge">escolhido</div>' : ''}
+          <span class="gift-icon">${g.icon}</span>
+          <div class="gift-name">${g.name}</div>
+          <span class="gift-tag">${getCategoryLabel(g.category)}</span>
+          <button class="choose-btn" ${taken ? 'disabled' : `onclick="openModal(${g.id})"`}>
+            ${taken ? '✓ ' + takenGifts[g.id] : 'Quero dar este 🦕'}
+          </button>`;
+        grid.appendChild(card);
+      });
+      container.appendChild(grid);
+    });
+    if (!hasAny) {
+      container.innerHTML = '<div class="loading-wrap"><div class="loading-txt">Nenhum presente disponível nessa categoria 🌿</div></div>';
+    }
+  }
+
+  function filterGifts(filter, btn) {
+    currentFilter = filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGifts(filter);
+  }
+
+  function openModal(id) {
+    selectedGiftId = id;
+    const gift = gifts.find(g => g.id === id);
+    document.getElementById('modal-gift-name').textContent = gift.icon + ' ' + gift.name;
+    document.getElementById('guest-name').value = '';
+    document.getElementById('guest-name').style.borderColor = '#c9b97a';
+    document.getElementById('modal-confirm-btn').disabled = false;
+    document.getElementById('modal-confirm-btn').textContent = 'Confirmar no WhatsApp 💬';
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+    selectedGiftId = null;
+  }
+
+  async function confirmGift() {
+    const name = document.getElementById('guest-name').value.trim();
+    if (!name) {
+      document.getElementById('guest-name').style.borderColor = '#c97a7a';
+      document.getElementById('guest-name').focus();
+      return;
+    }
+    const btn = document.getElementById('modal-confirm-btn');
+    btn.disabled = true;
+    btn.textContent = 'Salvando... 🦕';
+
+    const gift = gifts.find(g => g.id === selectedGiftId);
+    takenGifts[selectedGiftId] = name;
+    try { await saveData(); } catch(e) {}
+    updateStats();
+    renderGifts(currentFilter);
+    closeModal();
+
+    const msg = encodeURIComponent(`Olá, Nycolle e Nael! 🌿\n\nMeu nome é *${name}* e escolhi o presente:\n\n🎁 *${gift.name}*\n\npara o nosso pequeno Davi! Até breve! 🦕`);
+    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+  }
+
+  // Carrega dados e atualiza a cada 30s
+  loadData();
+  setInterval(loadData, 30000);
+</script>
+</body>
+</html>
